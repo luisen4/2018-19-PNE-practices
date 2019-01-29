@@ -8,4 +8,3 @@ def fibonacci(n):
 
 n = int(input("Please, introduce the term of the Fibonacci Sequence that you are looking for: "))
 print(fibonacci(n))
-
