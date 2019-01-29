@@ -2,7 +2,6 @@ with open("CPLX2.txt", "r") as f:
     seq = ""
     for line in f:
         if ">" in line:
-            print(line)
             continue
         else:
             seq = seq + line
