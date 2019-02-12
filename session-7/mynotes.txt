@@ -1,0 +1,75 @@
+Here you will take your notes
+
+We are clients, and we take information from the server by the ==> Client-Server Model
+
+
+CLIENT                      ---->    Request      ---->                 SERVER
+                            <----    Response     <----
+
+Client starts
+the communication.
+
+ ------------------
+|                  |
+| Computer, mobile |
+| phone, tablet... |
+|                  |
+ ------------------
+
+*In a computer, there could exist multiple servers or client, even both of them at the same time.
+
+*There's not a problem if there isn't any client.
+*If the server is not working, the client will not have responses.
+
+*All the conected computers have a Network Interface
+*The IP address refers to each of the Network Interface connections that a computer has with another machine.
+*Everytime we change the connections, the IP address also changes.
+
+IP ADDRESS---------------------------------------------------------
+
+    - MY PHONE IP ADDRESS AT URJC IS: 10.0.40.211
+    - MY PHONE IP ADDRESS AT HOME IS:
+
+    - MY COMPUTER IP ADDRESS AT URJC IS: 212.128.253.103
+    - TEACHER'S IP ADDRESS IS: 212.128.253.64
+
+PING---------------------------------------------------------------
+
+    * ping : is a command to check is the computer is "alive", connected to the server.
+
+    * ping time to 8.8.8.8: (IP of the Internet)
+
+    time=3.52 ms
+
+    * ping time to my computer (212.128.253.103):
+
+    time=0.029 ms
+
+    * ping time to another computer in the same network (212.128.253.104):
+
+    time=0.552 ms
+
+    * ping time to my mobile phone():
+
+    time=106 ms
+
+    *ping time to www.google.com:
+
+    time=
+
+    *ping time to www.urjc.es:
+
+    time=
+
+
+URLs---------------------------------------------------------------
+
+Identifying a computer interface for humans !!
+Inside each machine there exists DNS servers that make some changes between URLs and IP ADDRESSES.
+
+
+PORTS--------------------------------------------------------------
+If we want to connect to a server we must write the IP to connect to the machine, and the PORT to specify which
+ server we want to connect with.
+
+THIS IS A TEXT EXAMPLE FOR ADDING TO MY FILETHIS IS A TEXT EXAMPLE FOR ADDING TO MY FILE
