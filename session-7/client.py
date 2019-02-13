@@ -7,13 +7,13 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 print("Socket created")
 
-PORT = 8080
+PORT = 8081
 IP = "212.128.253.64"
 
 # Connect to the server
 s.connect((IP, PORT))
 
-s.send(str.encode("missi te quiero"))
+s.send(str.encode("Hello world"))
 
 # We receive the information from the server, and then we print it
 msg = s.recv(2048).decode("utf-8")

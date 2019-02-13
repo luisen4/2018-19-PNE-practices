@@ -5,8 +5,8 @@ import socket
 
 print("Socket created")
 
-PORT = 8081
-IP = "212.128.253.64"
+PORT = 8083
+IP = "212.128.253.110"
 
 
 
