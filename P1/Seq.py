@@ -20,14 +20,14 @@ class Seq:
         r = self.strbases[::-1]
         return Seq(r)
 
-    def count(base):
-        c = self.strbase.count("base")
+    def count(self, base):
+        c = self.strbases.count(base)
         return c
 
-    def perc(base):
+    def perc(self, base):
 
-        if lenght > 0:
-            perc = (round(100.0 * c / lenght, 1))
+        if self.len() > 0:
+            perc = (round(100.0 * self.strbases.count(base) / self.len(), 1))
             return perc
         else:
             perc = 0
