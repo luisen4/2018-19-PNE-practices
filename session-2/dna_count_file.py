@@ -1,7 +1,8 @@
 filename = input("Please enter the name of the file with the aminoacid sequence.")
 
 with open(filename, "r") as f:
-    sequence = f.strip(" ").replace("\n", "")
+    sequence = f
+    f.strip(" ").replace("\n", "")
     f.close()
 
 counters = [0, 0, 0, 0]
