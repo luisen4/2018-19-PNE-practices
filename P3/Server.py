@@ -2,8 +2,8 @@ import socket
 from Seq import Seq
 
 # Configure the Server's IP and PORT
-PORT = 8095
-IP = "212.128.253.96"
+PORT = 8083
+IP = "212.128.253.104"
 MAX_OPEN_REQUESTS = 5
 
 # Counting the number of connections
@@ -41,11 +41,24 @@ try:
             clientsocket.send(send_bytes)
             clientsocket.close()
 
+        elif msg == "error":
+
+            response = "ERROR"
+            send_bytes = str.encode(response)
+            clientsocket.send(send_bytes)
+            clientsocket.close()
+
         else:
             # Send the message
-            send_bytes = str.encode(msg)
+            response = "OK"
+            send_bytes = str.encode(response)
             # We must write bytes, not a string
             clientsocket.send(send_bytes)
+
+            # Read the message from the client, if any
+            msg = clientsocket.recv(2048).decode("utf-8")
+            print("Message from client: {}".format(msg))
+
             clientsocket.close()
 
 except socket.error:
