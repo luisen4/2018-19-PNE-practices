@@ -2,8 +2,8 @@ import socket
 import termcolor
 
 # Configure the Server's IP and PORT
-PORT = 8087
-IP = "212.128.253.105"
+PORT = 8091
+IP = "212.128.253.96"
 MAX_OPEN_REQUESTS = 5
 
 
@@ -14,18 +14,32 @@ def process_client(cs):
     # Read client message. Decode it as a string
     msg = cs.recv(2048).decode("utf-8")
 
-    # Print the received message, for debugging
-    print("Request message: {}".format(msg))
+    if msg != "EXIT":
 
-    # Send the msg back to the client (echo)
-    cs.send(str.encode(msg))
+        # Colouring the messsages
+        msg_color1 = termcolor.colored(msg, "blue")
+        msg_color2 = termcolor.colored(msg, "yellow")
 
-    # Close the socket
-    cs.close()
+        # Print the received message, for debugging
+        print("Request message: {}".format(msg_color2))
+
+        # Send the msg back to the client (echo)
+        cs.send(str.encode(msg_color1))
+
+        # Close the socket
+        cs.close()
+    else:
+
+        # Print the received message, for debugging
+        print("Request message: {}".format(msg))
+
+        # Finishing server
+        print("Finishing server")
+        cs.close()
+        exit()
 
 
 # MAIN PROGRAM
-
 # create an INET, STREAMing socket
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
