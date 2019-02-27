@@ -2,7 +2,7 @@ import socket
 import termcolor
 
 IP = "212.128.253.107"
-PORT = 8086
+PORT = 8080
 MAX_OPEN_REQUESTS = 5
 
 
@@ -26,7 +26,7 @@ def process_client(cs):
 
     # This new contents are written in HTML language and imported from the index file
 
-    filename = "index.html"
+    filename = "index1.html"
     with open( filename, "r") as f:
         contents = f.read()
         f.close()
