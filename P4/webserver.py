@@ -1,12 +1,33 @@
 import socket
 import termcolor
 
-IP = "212.128.253.107"
-PORT = 8085
+IP = "10.3.49.104"
+PORT = 8084
 MAX_OPEN_REQUESTS = 5
 
 
+# A function to read the content from the HTML file.
+def read_html(filename):
+
+    # Read the HTTP response message. It has the following lines
+    # Status line
+    # header
+    # blank line
+    # Body (content to send)
+
+    # This new contents are written in HTML language and imported from the index file
+    if filename == "":
+        filename = "index.html"
+    else:
+        filename = filename + ".html"
+
+    with open(filename, "r") as f:
+        html = f.read()
+        return html
+
+
 def process_client(cs):
+
     """Process the client request.
     Parameters:  cs: socket for communicating with the client"""
 
@@ -18,18 +39,20 @@ def process_client(cs):
     print("Request message: ")
     termcolor.cprint(msg, 'green')
 
-    # Build the HTTP response message. It has the following lines
-    # Status line
-    # header
-    # blank line
-    # Body (content to send)
+    # Split the message into three parts: 1) GET  2) /  3) More information
+    # And the split it again to get the required command for choosing the html page
 
-    # This new contents are written in HTML language and imported from the index file
+    msg = msg.partition("/")
+    msg = msg[-1].partition(" ")
 
-    filename = "index.html"
-    with open( filename, "r") as f:
-        contents = f.read()
-        f.close()
+    if msg[0] == "blue":
+        contents = read_html(msg[0])
+    elif msg[0] == "pink":
+        contents = read_html(msg[0])
+    elif msg[0] == "":
+        contents = read_html(msg[0])
+    else:
+        contents = read_html("error")
 
     # -- Everything is OK
     status_line = "HTTP/1.1 200 OK\r\n"
