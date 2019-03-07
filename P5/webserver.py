@@ -1,96 +1,85 @@
-import socket
+import http.server
+import socketserver
 import termcolor
 
-IP = "212.128.253.106"
-PORT = 8085
-MAX_OPEN_REQUESTS = 5
+# Define the Server's port
+PORT = 8004
 
 
-# A function to read the content from the HTML file.
-def read_html(filename):
+# Class with our Handler. It is a called derived from BaseHTTPRequestHandler
+# It means that our class inheritates all his methods and properties
+class TestHandler(http.server.BaseHTTPRequestHandler):
 
-    # Read the HTTP response message. It has the following lines
-    # Status line
-    # header
-    # blank line
-    # Body (content to send)
+    def do_GET(self):
+        """This method is called whenever the client invokes the GET method
+        in the HTTP protocol request"""
+        print("GET Received")
 
-    # This new contents are written in HTML language and imported from the index file
-    if filename == "":
-        filename = "index.html"
-    else:
-        filename = filename + ".html"
+        # Print the request line
+        termcolor.cprint(self.requestline, 'green')
+        print("Request line:" + self.requestline)
+        print("     Cnd:    " + self.command)
+        print("Path:        " + self.path)
 
-    with open(filename, "r") as f:
-        html = f.read()
-        return html
+        # IN this simple server version:
+        # We are NOT processing the client's request
+        # It is a happy server: It always returns a message saying
+        # that everything is ok
 
+        # Message to send back to the client
+        if self.path == "/":
+            with open("index.html", "r") as f:
+                contents = f.read()
+                f.close()
+        elif self.path == "/blue":
+            with open("blue.html", "r") as f:
+                contents = f.read()
+                f.close()
+        elif self.path == "/pink":
+            with open("pink.html", "r") as f:
+                contents = f.read()
+                f.close()
 
-def process_client(cs):
+        else:
+            with open("error.html", "r") as f:
+                contents = f.read()
+                f.close()
 
-    """Process the client request.
-    Parameters:  cs: socket for communicating with the client"""
+        # Generating the response message
+        self.send_response(200)  # -- Status line: OK!
 
-    # Read client message. Decode it as a string
-    msg = cs.recv(2048).decode("utf-8")
+        # Define the content-type header:
+        self.send_header('Content-Type', 'text/html')
+        self.send_header('Content-Length', len(str.encode(contents)))
 
-    # Print the received message, for debugging
-    print()
-    print("Request message: ")
-    termcolor.cprint(msg, 'green')
+        # The header is finished
+        self.end_headers()
 
-    # Split the message into three parts: 1) GET  2) /  3) More information
-    # And the split it again to get the required command for choosing the html page
+        # Send the response message
+        self.wfile.write(str.encode(contents))
 
-    msg = msg.partition("/")
-    msg = msg[-1].partition(" ")
-
-    if msg[0] == "blue":
-        contents = read_html(msg[0])
-    elif msg[0] == "pink":
-        contents = read_html(msg[0])
-    elif msg[0] == "":
-        contents = read_html(msg[0])
-    else:
-        contents = read_html("error")
-
-    # -- Everything is OK
-    status_line = "HTTP/1.1 200 OK\r\n"
-
-    # -- Build the header
-    header = "Content-Type: text/html\r\n"
-    header += "Content-Length: {}\r\n".format(len(str.encode(contents)))
-
-    # -- Build the message by joining together all the parts
-    response_msg = str.encode(status_line + header + "\r\n" + contents)
-    cs.send(response_msg)
-
-    # Close the socket
-    cs.close()
+        return
 
 
-# MAIN PROGRAM
+# ------------------------
+# - Server MAIN program
+# ------------------------
+# -- Set the new handler
+Handler = TestHandler
 
-# create an INET, STREAMing socket
-serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# -- Open the socket server
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
 
-# Bind the socket to the IP and PORT
-serversocket.bind((IP, PORT))
+    print("Serving at PORT", PORT)
 
-# Configure the server sockets
-# MAX_OPEN_REQUESTS connect requests before refusing outside connections
-serversocket.listen(MAX_OPEN_REQUESTS)
+    # -- Main loop: Attend the client. Whenever there is a new
+    # -- clint, the handler is called
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("")
+        print("Stoped by the user")
+        httpd.server_close()
 
-print("Socket ready: {}".format(serversocket))
-
-while True:
-    # accept connections from outside
-    # The server is waiting for connections
-    print("Waiting for connections at {}, {} ".format(IP, PORT))
-    (clientsocket, address) = serversocket.accept()
-
-    # Connection received. A new socket is returned for communicating with the client
-    print("Attending connections from client: {}".format(address))
-
-    # Service the client
-    process_client(clientsocket)
+print("")
+print("Server Stopped")
