@@ -1,61 +1,23 @@
-# Programming our first client
-
 import socket
 
-print("Socket created")
+# Server IP, PORT
+PORT = 8085
+IP = "172.20.10.6"
 
-PORT = 8083
-IP = "212.128.253.104"
+# Before connecting to the server, ask the user for the string
+message = "AAACttttcg" + "\n" + "COunTT"
 
-while True:
+# We create sockets for communicating with the server, and then we define how we want it to work: as a file.
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # Before connecting to the server, ask the usser for the string
-    message = input("Please enter your message: ")
-    valid_aminoacids = ["A", "C", "T", "G"]
+# Connect to the server
+s.connect((IP, PORT))
 
-    if len(message) == 0:
-        message = "empty"
+# Send the request message to the server
+s.send(str.encode(message))
 
-    for a in message:
-        if a not in valid_aminoacids:
-            message = "error"
+# We receive the information from the server, and then we print it
+response = s.recv(2048).decode("utf-8")
 
-    # We create sockets for communicating with the server, and then we define how we want it to work: as a file.
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # Connect to the server
-    s.connect((IP, PORT))
-
-    # Send the request message to the server
-    s.send(str.encode(message))
-
-    # We receive the information from the server, and then we print it
-    response = s.recv(2048).decode("utf-8")
-
-    # Print server response
-    print("Response: {}".format(response))
-
-    if response == "OK":
-
-        while True:
-
-            # Before connecting to the server, ask the usser for the string
-            message = input("Please enter your message: ")
-
-            # We create sockets for communicating with the server, and then we define how we want it to work: as a file.
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-            # Connect to the server
-            s.connect((IP, PORT))
-
-            # Send the request message to the server
-            s.send(str.encode(message))
-
-            # We receive the information from the server, and then we print it
-            response = s.recv(2048).decode("utf-8")
-
-            # Print server response
-            print("Response: {}".format(response))
-
-    s.close()
-
+# Print server response
+print("Response: {}".format(response))
