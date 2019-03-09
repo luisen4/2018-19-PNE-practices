@@ -3,7 +3,7 @@ from Seq import Seq
 
 
 # Configure the Server's IP and PORT
-PORT = 8085
+PORT = 8084
 IP = "172.20.10.6"
 MAX_OPEN_REQUESTS = 5
 
@@ -28,9 +28,11 @@ def operation(seq, function):
     if function == "len":
         return seq.len()
     elif function == "complement":
-        return seq.complement()
+        sequence = seq.complement()
+        return sequence.strbases
     elif function == "reverse":
-        return seq.reverse()
+        sequence = seq.reverse()
+        return sequence.strbases
     elif function[:-1] == "count":
         return seq.count(function[-1])
     elif function[:-1] == "perc":

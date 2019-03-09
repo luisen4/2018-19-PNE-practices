@@ -1,11 +1,11 @@
 import socket
 
 # Server IP, PORT
-PORT = 8085
+PORT = 8084
 IP = "172.20.10.6"
 
 # Before connecting to the server, ask the user for the string
-message = "AAACttttcg" + "\n" + "COunTT"
+message = "ACTG" + "\n" + "reverse"
 
 # We create sockets for communicating with the server, and then we define how we want it to work: as a file.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
