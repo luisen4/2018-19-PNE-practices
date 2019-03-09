@@ -1,3 +1,6 @@
+# An object class for the aminoacid sequences with several operations and calculations
+
+
 class Seq:
 
     def __init__(self, strbases):
