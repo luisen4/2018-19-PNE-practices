@@ -20,12 +20,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Open the file
 
         if self.path == "/":
-            with open("form1.html", "r") as f:
+            with open("form_ex_2.html", "r") as f:
                 contents = f.read()
                 f.close()
         elif "msg" in self.path:
-            with open("echo1.html", "r") as f:
-                echo_message = self.path[self.path.find("=")+1:]
+            with open("echo2.html", "r") as f:
+                echo_message = self.path[self.path.find("=")+1:self.path.find("&")]
+                if "chk" in self.path:
+                    echo_message = echo_message.upper()
                 contents = f.read().format(echo_message)
                 f.close()
         else:
