@@ -73,7 +73,7 @@ def get_repos(GITHUB_ID):
 
 def get_commits(GITHUB_ID):
 
-    REPO_NAME = "/2018.19-PNE-practices"
+    REPO_NAME = "/2018-19-PNE-practices"
     # -- Connect to the server
     # -- NOTICE it is an HTTPS connection!
     # -- If we do not specify the port, the standar one
@@ -120,4 +120,4 @@ commits = user_commits[0]['total']
 
 print("Name: {}".format(name))
 print("Repositories: {}".format(','.join(n for n in repository_names)))
-print("Total commits in 2018.19-PNE-practices: {}".format(commits))
+print("Total commits in 2018-19-PNE-practices: {}".format(commits))
