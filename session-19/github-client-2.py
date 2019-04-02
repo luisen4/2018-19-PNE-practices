@@ -83,7 +83,7 @@ def get_commits(GITHUB_ID):
     # -- Send the request. No body (None)
     # -- Use the defined headers
     conn.request(METHOD, ENDPOINT_2 + "/" + GITHUB_ID + REPO_NAME + ENDPOINT_3, None, headers)
-
+    print(METHOD, ENDPOINT_2 + "/" + GITHUB_ID + REPO_NAME + ENDPOINT_3)
     # -- Wait for the server's response
     r3 = conn.getresponse()
 
@@ -115,9 +115,7 @@ for dicts in user_repos:
     repository_names.append(dicts['name'])
 
 # -- Get some data
-commits = ""
-for dicts in user_commits:
-    commits = dicts['total']
+commits = user_commits[0]['total']
 
 name = user_name['name']
 
